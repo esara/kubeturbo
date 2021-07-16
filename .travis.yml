@@ -10,6 +10,14 @@ services:
 go:
   - 1.16
  
+os: linux
+
+arch:
+  - amd64
+  - arm64
+  - ppc64le
+  - s390x
+
 go_import_path: github.com/turbonomic/kubeturbo
 
 before_install:
@@ -35,5 +43,8 @@ after_success:
       elif [ "$TRAVIS_BRANCH" == "master" ]; then
           # Push the latest image built from master branch
           docker push $DOCKER_IMAGE_NAME
-      fi
+      elif [ "$TRAVIS_BRANCH" == "multiarch" ]; then
+          # Push the latest image built from master branch
+          docker push $DOCKER_IMAGE_NAME
+     fi
     fi
